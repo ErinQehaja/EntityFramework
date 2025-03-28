@@ -14,6 +14,10 @@ namespace SmallAplicationWithEF
 
         [Required(ErrorMessage = "Der Name darf nicht leer sein.")]
         [MinLength(1, ErrorMessage = "Der Name darf nicht leer sein.")]
-        public string Name { get; set; } = null!; 
+        public string Name { get; set; } = null!;
+
+        [Required(ErrorMessage = "Die Postleitzahl darf nicht leer sein.")]
+        [MinLength(1, ErrorMessage = "Die Postleitzahl darf nicht leer sein.")]
+        public string PLZ { get; set; } = null!;
     }
 }
