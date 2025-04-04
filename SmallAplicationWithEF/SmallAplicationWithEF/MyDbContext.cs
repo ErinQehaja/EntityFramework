@@ -1,15 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmallAplicationWithEF
 {
     public class MyDbContext : DbContext
     {
-        public DbSet<Item> Items { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<Workers> Workers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
