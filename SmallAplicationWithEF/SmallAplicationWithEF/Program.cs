@@ -55,7 +55,7 @@ namespace SmallAplicationWithEF
                     };
                     context.Items.Add(newItem);
                     context.SaveChanges();
-                    Console.WriteLine("Gespeichert! Nächstes Item (oder 'exit'):");
+                    Console.WriteLine("Gespeichert! Nächstes Item. Name eingeben (oder 'exit'):");
 
                     name = Console.ReadLine();
                 }
