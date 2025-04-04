@@ -8,12 +8,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmallAplicationWithEF
 {
-    public class Item
+    public class Person
     {
         public int Id { get; set; }
 
         public string Name { get; set; } = null!;
 
         public string PLZ { get; set; } = null!;
+    }
+
+    public class Workers
+    {
+        public List<Person> workers { get; set; }
     }
 }

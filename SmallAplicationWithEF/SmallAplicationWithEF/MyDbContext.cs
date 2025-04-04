@@ -9,7 +9,9 @@ namespace SmallAplicationWithEF
 {
     public class MyDbContext : DbContext
     {
-        public DbSet<Item> Items { get; set; }
+        public DbSet<Person> Items { get; set; }
+
+        public DbSet<Workers> Wrappers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

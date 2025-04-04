@@ -13,7 +13,7 @@ namespace SmallAplicationWithEF
         {
             using (var context = new MyDbContext())
             {
-                Console.WriteLine("Gespeicherte Items:");
+                Console.WriteLine("Gespeicherte Personen:");
                 foreach (var item in context.Items)
                 {
                     Console.WriteLine($"ID: {item.Id}, Name: {item.Name}, PLZ: {item.PLZ}");
@@ -48,7 +48,7 @@ namespace SmallAplicationWithEF
                         }
                     }
 
-                    var newItem = new Item
+                    var newItem = new Person
                     {
                         Name = name,
                         PLZ = plz
