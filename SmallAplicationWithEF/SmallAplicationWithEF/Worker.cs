@@ -1,10 +1,5 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace SmallAplicationWithEF
 {
@@ -15,10 +10,16 @@ namespace SmallAplicationWithEF
         public string Name { get; set; } = null!;
 
         public string PLZ { get; set; } = null!;
+
+        public int? WorkersId { get; set; }
+
+        public Workers? Workers { get; set; }
     }
 
     public class Workers
     {
-        public List<Person> workers { get; set; }
+        public int Id { get; set; }
+
+        public List<Person> Persons { get; set; } = new List<Person>();
     }
 }
