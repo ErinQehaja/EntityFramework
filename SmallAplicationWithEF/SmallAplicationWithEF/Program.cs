@@ -19,19 +19,24 @@ namespace SmallAplicationWithEF
                     Console.WriteLine($"ID: {item.Id}, Name: {item.Name}, PLZ: {item.PLZ}");
                 }
 
-                Console.WriteLine("\nNeues Item eingeben (oder 'exit' zum Beenden):");
-                string? input = Console.ReadLine();
+                Console.WriteLine("\nNeues Item. Name eingeben (oder 'exit' zum Beenden):");
+                string? name = Console.ReadLine();
 
-                while (input?.ToLower() != "exit")
+                while (name?.ToLower() != "exit")
                 {
-                    if (string.IsNullOrWhiteSpace(input))
+                    if (string.IsNullOrWhiteSpace(name))
                     {
                         Console.WriteLine("Fehler: Der Name darf nicht leer sein. Bitte geben Sie einen gültigen Namen ein.");
+                        name = Console.ReadLine();
+                        continue; 
                     }
-                    else
+
+                    string? plz = null;
+                    bool validPlz = false;
+                    while (!validPlz)
                     {
                         Console.WriteLine("Postleitzahl eingeben:");
-                        string? plz = Console.ReadLine();
+                        plz = Console.ReadLine();
 
                         if (string.IsNullOrWhiteSpace(plz))
                         {
@@ -39,18 +44,20 @@ namespace SmallAplicationWithEF
                         }
                         else
                         {
-                            var newItem = new Item
-                            {
-                                Name = input,
-                                PLZ = plz
-                            };
-                            context.Items.Add(newItem);
-                            context.SaveChanges();
-                            Console.WriteLine("Gespeichert! Nächstes Item (oder 'exit'):");
+                            validPlz = true; 
                         }
                     }
 
-                    input = Console.ReadLine();
+                    var newItem = new Item
+                    {
+                        Name = name,
+                        PLZ = plz
+                    };
+                    context.Items.Add(newItem);
+                    context.SaveChanges();
+                    Console.WriteLine("Gespeichert! Nächstes Item (oder 'exit'):");
+
+                    name = Console.ReadLine();
                 }
             }
             Console.WriteLine("Programm beendet.");
