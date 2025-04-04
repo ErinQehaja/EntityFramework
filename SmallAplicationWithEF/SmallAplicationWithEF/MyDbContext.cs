@@ -4,7 +4,7 @@ namespace SmallAplicationWithEF
 {
     public class MyDbContext : DbContext
     {
-        public DbSet<Person> Items { get; set; }
+        public DbSet<Person> Persons { get; set; }
         public DbSet<Workers> Workers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
