@@ -11,9 +11,7 @@ namespace SmallAplicationWithEF
 
         public string PLZ { get; set; } = null!;
 
-        public int? WorkersId { get; set; }
-
-        public Workers? Workers { get; set; }
+        public Workers Workers { get; set; }
     }
 
     public class Workers
