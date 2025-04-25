@@ -5,10 +5,12 @@ namespace SmallAplicationWithEF
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             using (var context = new MyDbContext())
             {
+                context.Database.Migrate();
+
                 var workers = context.Workers.Include(w => w.Persons).FirstOrDefault();
                 if (workers == null)
                 {
