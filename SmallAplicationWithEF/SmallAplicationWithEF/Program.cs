@@ -1,34 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmallAplicationWithEF
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             using (var context = new MyDbContext())
             {
-                Console.WriteLine("Gespeicherte Items:");
-                foreach (var item in context.Items)
+                context.Database.Migrate();
+
+                var workers = context.Workers.Include(w => w.Persons).FirstOrDefault();
+                if (workers == null)
                 {
-                    Console.WriteLine($"ID: {item.Id}, Name: {item.Name}, PLZ: {item.PLZ}");
+                    workers = new Workers();
+                    context.Workers.Add(workers);
+                    context.SaveChanges();
                 }
 
-                Console.WriteLine("\nNeues Item. Name eingeben (oder 'exit' zum Beenden):");
+                Console.WriteLine("Gespeicherte Personen in der Workers-Liste:");
+                if (workers.Persons.Any())
+                {
+                    foreach (var person in workers.Persons)
+                    {
+                        Console.WriteLine($"  - ID: {person.Id}, Name: {person.Name}, PLZ: {person.PLZ}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("  - Keine Personen vorhanden.");
+                }
+
+                Console.WriteLine("\nNeue Person hinzufügen (Name eingeben, 'exit' zum Beenden):");
                 string? name = Console.ReadLine();
 
                 while (name?.ToLower() != "exit")
                 {
                     if (string.IsNullOrWhiteSpace(name))
                     {
-                        Console.WriteLine("Fehler: Der Name darf nicht leer sein. Bitte geben Sie einen gültigen Namen ein.");
+                        Console.WriteLine("Fehler: Name darf nicht leer sein.");
                         name = Console.ReadLine();
-                        continue; 
+                        continue;
                     }
 
                     string? plz = null;
@@ -40,23 +53,24 @@ namespace SmallAplicationWithEF
 
                         if (string.IsNullOrWhiteSpace(plz))
                         {
-                            Console.WriteLine("Fehler: Die Postleitzahl darf nicht leer sein. Bitte geben Sie eine gültige PLZ ein.");
+                            Console.WriteLine("Fehler: PLZ darf nicht leer sein.");
                         }
                         else
                         {
-                            validPlz = true; 
+                            validPlz = true;
                         }
                     }
 
-                    var newItem = new Item
+                    var newPerson = new Person
                     {
                         Name = name,
-                        PLZ = plz
+                        PLZ = plz,
+                        Workers = workers 
                     };
-                    context.Items.Add(newItem);
-                    context.SaveChanges();
-                    Console.WriteLine("Gespeichert! Nächstes Item. Name eingeben (oder 'exit'):");
+                    workers.Persons.Add(newPerson);
 
+                    context.SaveChanges();
+                    Console.WriteLine("Person gespeichert! Nächste Person (oder 'exit'):");
                     name = Console.ReadLine();
                 }
             }
