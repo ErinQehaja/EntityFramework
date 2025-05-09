@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace SmallAplicationWithEF
 {
@@ -9,7 +10,10 @@ namespace SmallAplicationWithEF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=mydatabase.db");
+            optionsBuilder.UseSqlite("Data Source=mydatabase.db")
+                .LogTo(
+                Console.WriteLine,
+                LogLevel.Information);
         }
     }
 }
